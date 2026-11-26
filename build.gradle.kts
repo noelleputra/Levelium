@@ -70,10 +70,11 @@ dependencies {
     compileOnly("net.luckperms:api:5.4")
     compileOnly("dev.aurelium:auraskills-api-bukkit:2.2.0")
     compileOnly("io.lumine:Mythic-Dist:5.6.1")
-    compileOnly("io.lumine:MythicLib-dist:1.6.2-SNAPSHOT")
+    compileOnly("io.lumine:MythicLib-dist:1.7.1-SNAPSHOT")
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.7")
     compileOnly("com.willfp:eco:6.73.0")
     compileOnly("com.willfp:EcoSkills:3.59.7")
+    compileOnly("net.Indyuce:MMOItems-API:6.10.1-SNAPSHOT")
 
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.0.2")
@@ -92,6 +93,7 @@ tasks.test {
 
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
+    options.compilerArgs.add("-proc:full")
 }
 
 tasks.withType<ShadowJar> {

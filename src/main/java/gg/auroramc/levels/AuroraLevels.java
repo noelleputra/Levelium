@@ -10,6 +10,7 @@ import gg.auroramc.levels.config.ConfigManager;
 import gg.auroramc.levels.hooks.auraskills.AuraSkillsHook;
 import gg.auroramc.levels.hooks.ecoskills.EcoSkillsHook;
 import gg.auroramc.levels.hooks.luckperms.LuckPermsHook;
+import gg.auroramc.levels.hooks.mmoitems.MMOItemsHook;
 import gg.auroramc.levels.hooks.mmolib.MMOLibHook;
 import gg.auroramc.levels.hooks.mythic.MythicHook;
 import gg.auroramc.levels.hooks.worldguard.WorldguardHook;
@@ -55,6 +56,7 @@ public class AuroraLevels extends JavaPlugin {
                 .add(AuraSkillsHook.class, "AuraSkills")
                 .add(EcoSkillsHook.class, "EcoSkills")
                 .add(LuckPermsHook.class, "LuckPerms")
+                .add(MMOItemsHook.class, "MMOItems")
                 .add(MythicHook.class, "MythicMobs")
                 .add(WorldguardHook.class, "WorldGuard")
                 .add(MMOLibHook.class, "MythicLib");
