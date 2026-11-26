@@ -1,15 +1,18 @@
 package gg.auroramc.levels.config.menu;
 
+import gg.auroramc.aurora.api.config.AuroraConfig;
 import gg.auroramc.aurora.api.config.premade.ItemConfig;
+import gg.auroramc.levels.AuroraLevels;
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
 @Getter
-public class LevelMenuConfig {
+public class LevelMenuConfig extends AuroraConfig {
     private String title;
     private List<Integer> levelTrack;
     private Integer rows = 6;
@@ -50,8 +53,22 @@ public class LevelMenuConfig {
         private String unfilledCharacter;
     }
 
-    // Steps by config-version, only ever appended, each sets config-version itself
-    public static List<Consumer<YamlConfiguration>> migrations() {
+    public LevelMenuConfig(AuroraLevels plugin) {
+        super(getFile(plugin));
+    }
+
+    private static File getFile(AuroraLevels plugin) {
+        return new File(plugin.getDataFolder(), "menus/levels.yml");
+    }
+
+    public static void saveDefault(AuroraLevels plugin) {
+        if (!getFile(plugin).exists()) {
+            plugin.saveResource("menus/levels.yml", false);
+        }
+    }
+
+    @Override
+    protected List<Consumer<YamlConfiguration>> getMigrationSteps() {
         return List.of(
                 (yaml) -> {
                     yaml.set("config-version", null);

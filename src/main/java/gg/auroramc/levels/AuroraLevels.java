@@ -2,7 +2,7 @@ package gg.auroramc.levels;
 
 import gg.auroramc.aurora.api.AuroraAPI;
 import gg.auroramc.aurora.api.AuroraLogger;
-import gg.auroramc.aurora.api.plugin.Hooks;
+import gg.auroramc.levels.hooks.Hooks;
 import gg.auroramc.levels.api.AuroraLevelsProvider;
 import gg.auroramc.levels.api.data.LevelData;
 import gg.auroramc.levels.command.CommandManager;
@@ -125,19 +125,22 @@ public class AuroraLevels extends JavaPlugin {
         if (commandManager != null) commandManager.unregisterCommands();
     }
 
-    // Built for Aurora 3: with an older one, say so clearly instead of failing somewhere deep inside. Only Bukkit is
-    // used here, an older Aurora doesn't have what this version needs.
+    // Check the minimum version before loading code that depends on Aurora 2.5 APIs.
     private boolean auroraIsCompatible() {
         var aurora = Bukkit.getPluginManager().getPlugin("Aurora");
         var version = aurora == null ? "none" : aurora.getPluginMeta().getVersion();
-        int major;
         try {
-            major = Integer.parseInt(version.split("[.-]")[0]);
+            var parts = version.split("[.-]");
+            int major = Integer.parseInt(parts[0]);
+            int minor = Integer.parseInt(parts[1]);
+            int patch = Integer.parseInt(parts[2]);
+            if (major == 2 && (minor > 5 || minor == 5 && patch >= 3)) return true;
         } catch (NumberFormatException e) {
-            major = 0;
+            // Report unparseable versions as incompatible below.
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Report incomplete versions as incompatible below.
         }
-        if (major >= 3) return true;
-        getLogger().severe(getName() + " " + getPluginMeta().getVersion() + " needs Aurora 3.0 or newer, but Aurora " + version + " is installed. Update Aurora.");
+        getLogger().severe(getName() + " " + getPluginMeta().getVersion() + " requires Aurora 2.5.3 or newer in the 2.x series, but Aurora " + version + " is installed.");
         return false;
     }
 }

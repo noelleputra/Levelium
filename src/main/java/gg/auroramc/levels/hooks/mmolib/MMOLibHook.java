@@ -1,7 +1,6 @@
 package gg.auroramc.levels.hooks.mmolib;
 
-import gg.auroramc.aurora.api.plugin.Hook;
-import gg.auroramc.aurora.api.reward.integration.MMOStatReward;
+import gg.auroramc.levels.hooks.Hook;
 import gg.auroramc.aurora.api.util.NamespacedId;
 import gg.auroramc.levels.AuroraLevels;
 
@@ -11,7 +10,7 @@ public class MMOLibHook implements Hook<AuroraLevels> {
     @Override
     public void hook(AuroraLevels plugin) {
         plugin.getLeveler().getRewardFactory()
-                .registerRewardType(NamespacedId.fromDefault("mmo_stat"), () -> new MMOStatReward(KEY, plugin, AuroraLevels.logger()));
+                .registerRewardType(NamespacedId.fromDefault("mmo_stat"), MMOStatReward.class);
 
         plugin.getLeveler().getRewardAutoCorrector()
                 .registerCorrector(NamespacedId.fromDefault("mmo_stat"), new MMOStatCorrector(plugin));

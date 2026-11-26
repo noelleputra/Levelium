@@ -1,8 +1,6 @@
 package gg.auroramc.levels.hooks.auraskills;
 
-import gg.auroramc.aurora.api.plugin.Hook;
-import gg.auroramc.aurora.api.reward.integration.AuraSkillsStatReward;
-import gg.auroramc.aurora.api.reward.integration.AuraSkillsXpReward;
+import gg.auroramc.levels.hooks.Hook;
 import gg.auroramc.aurora.api.util.NamespacedId;
 import gg.auroramc.levels.AuroraLevels;
 import lombok.Getter;
@@ -21,9 +19,9 @@ public class AuraSkillsHook implements Hook<AuroraLevels> {
         Bukkit.getPluginManager().registerEvents(new AuraSkillsListener(this), plugin);
 
         plugin.getLeveler().getRewardFactory()
-                .registerRewardType(NamespacedId.fromDefault("auraskills_stat"), () -> new AuraSkillsStatReward(PREFIX, AuroraLevels.logger()));
+                .registerRewardType(NamespacedId.fromDefault("auraskills_stat"), AuraSkillsStatReward.class);
         plugin.getLeveler().getRewardFactory()
-                .registerRewardType(NamespacedId.fromDefault("auraskills_xp"), () -> new AuraSkillsXpReward(AuroraLevels.logger()));
+                .registerRewardType(NamespacedId.fromDefault("auraskills_xp"), AuraSkillsXpReward.class);
         plugin.getLeveler().getRewardAutoCorrector()
                 .registerCorrector(NamespacedId.fromDefault("auraskills_stat"), this.corrector);
 

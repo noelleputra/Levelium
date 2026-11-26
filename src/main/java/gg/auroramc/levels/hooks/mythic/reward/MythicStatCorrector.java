@@ -2,7 +2,6 @@ package gg.auroramc.levels.hooks.mythic.reward;
 
 import com.google.common.collect.Maps;
 import gg.auroramc.aurora.api.reward.RewardCorrector;
-import gg.auroramc.aurora.api.reward.integration.MythicStatReward;
 import gg.auroramc.levels.AuroraLevels;
 import gg.auroramc.levels.hooks.mythic.MythicHook;
 import io.lumine.mythic.bukkit.MythicBukkit;

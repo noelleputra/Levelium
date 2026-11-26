@@ -1,10 +1,9 @@
 name: AuroraLevels
 version: '${version}'
 main: gg.auroramc.levels.AuroraLevels
-api-version: '26.2'
+api-version: '1.21.11'
 authors: [ "erik_sz" ]
 folia-supported: true
-aurora-api: 3
 depend:
   - "Aurora"
 softdepend:

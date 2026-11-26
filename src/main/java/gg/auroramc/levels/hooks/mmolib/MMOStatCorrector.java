@@ -2,7 +2,6 @@ package gg.auroramc.levels.hooks.mmolib;
 
 import com.google.common.collect.Maps;
 import gg.auroramc.aurora.api.reward.RewardCorrector;
-import gg.auroramc.aurora.api.reward.integration.MMOStatReward;
 import gg.auroramc.aurora.api.util.NamespacedId;
 import gg.auroramc.levels.AuroraLevels;
 import io.lumine.mythic.lib.api.player.EquipmentSlot;

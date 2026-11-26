@@ -1,6 +1,6 @@
 package gg.auroramc.levels.hooks.luckperms;
 
-import gg.auroramc.aurora.api.plugin.Hook;
+import gg.auroramc.levels.hooks.Hook;
 import gg.auroramc.aurora.api.reward.PermissionReward;
 import gg.auroramc.aurora.api.util.NamespacedId;
 import gg.auroramc.levels.AuroraLevels;

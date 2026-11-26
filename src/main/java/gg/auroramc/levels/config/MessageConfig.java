@@ -1,13 +1,19 @@
 package gg.auroramc.levels.config;
 
+import gg.auroramc.aurora.api.config.AuroraConfig;
+import gg.auroramc.levels.AuroraLevels;
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.function.Consumer;
 
 @Getter
-public class MessageConfig {
+public class MessageConfig extends AuroraConfig {
     private String reloaded = "&aReloaded configuration!";
     private String levelSet = "&aLevel set to {level} for player {player}!";
     private String info = "&a{player} level is {level} and the current XP is {current_xp}!";
@@ -24,8 +30,36 @@ public class MessageConfig {
     private String regionEnterDenyMinLevel = "&cYou must be at least level {min-level} to enter this region!";
     private String regionEnterDenyMaxLevel = "&cYou must be at most level {max-level} to enter this region!";
 
-    // Steps by config-version, only ever appended, each sets config-version itself
-    public static List<Consumer<YamlConfiguration>> migrations() {
+    public MessageConfig(AuroraLevels plugin, String language) {
+        super(getFile(plugin, language));
+    }
+
+    private static File getFile(AuroraLevels plugin, String language) {
+        return new File(plugin.getDataFolder(), "messages_" + language + ".yml");
+    }
+
+    public static void saveDefault(AuroraLevels plugin, String language) {
+        if (!getFile(plugin, language).exists()) {
+            try {
+                plugin.saveResource("messages_" + language + ".yml", false);
+            } catch (IllegalArgumentException e) {
+                plugin.getLogger().warning("Internal message file for language: " + language + " not found; copying English defaults.");
+                File file = getFile(plugin, language);
+                file.getParentFile().mkdirs();
+                try (InputStream input = plugin.getResource("messages_en.yml")) {
+                    if (input == null) {
+                        throw new IOException("Bundled messages_en.yml resource is missing");
+                    }
+                    Files.copy(input, file.toPath());
+                } catch (IOException copyError) {
+                    throw new IllegalStateException("Failed to create message file for language: " + language, copyError);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected List<Consumer<YamlConfiguration>> getMigrationSteps() {
         return List.of(
                 (yaml) -> {
                     yaml.set("region-enter-deny-min-level", "&cYou must be at least level {min-level} to enter this region!");

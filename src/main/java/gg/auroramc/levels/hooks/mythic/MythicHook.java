@@ -1,11 +1,11 @@
 package gg.auroramc.levels.hooks.mythic;
 
-import gg.auroramc.aurora.api.plugin.Hook;
-import gg.auroramc.aurora.api.reward.integration.MythicStatReward;
+import gg.auroramc.levels.hooks.Hook;
 import gg.auroramc.aurora.api.util.NamespacedId;
 import gg.auroramc.levels.AuroraLevels;
 import gg.auroramc.levels.hooks.mythic.reward.AuroraStatSource;
 import gg.auroramc.levels.hooks.mythic.reward.MythicStatCorrector;
+import gg.auroramc.levels.hooks.mythic.reward.MythicStatReward;
 import io.lumine.mythic.bukkit.events.MythicConditionLoadEvent;
 import io.lumine.mythic.bukkit.events.MythicMechanicLoadEvent;
 import io.lumine.mythic.core.skills.stats.StatSource;
@@ -22,7 +22,7 @@ public class MythicHook implements Hook<AuroraLevels>, Listener {
         this.registrar = new MythicRegistrar(plugin);
 
         plugin.getLeveler().getRewardFactory()
-                .registerRewardType(NamespacedId.fromDefault("mythic_stat"), () -> new MythicStatReward(SOURCE, AuroraLevels.logger()));
+                .registerRewardType(NamespacedId.fromDefault("mythic_stat"), MythicStatReward.class);
 
         plugin.getLeveler().getRewardAutoCorrector()
                 .registerCorrector(NamespacedId.fromDefault("mythic_stat"), new MythicStatCorrector(plugin));

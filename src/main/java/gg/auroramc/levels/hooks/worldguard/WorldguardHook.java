@@ -1,7 +1,7 @@
 package gg.auroramc.levels.hooks.worldguard;
 
 import com.sk89q.worldguard.WorldGuard;
-import gg.auroramc.aurora.api.plugin.Hook;
+import gg.auroramc.levels.hooks.Hook;
 import gg.auroramc.levels.AuroraLevels;
 
 public class WorldguardHook implements Hook<AuroraLevels> {

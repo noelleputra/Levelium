@@ -1,16 +1,19 @@
 package gg.auroramc.levels.config;
 
+import gg.auroramc.aurora.api.config.AuroraConfig;
 import gg.auroramc.aurora.api.config.premade.ConcreteMatcherConfig;
 import gg.auroramc.aurora.api.config.premade.IntervalMatcherConfig;
+import gg.auroramc.levels.AuroraLevels;
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
 @Getter
-public class LevelConfig {
+public class LevelConfig extends AuroraConfig {
     private Boolean debug = false;
     private String language = "en";
     private String xpFormula;
@@ -70,8 +73,22 @@ public class LevelConfig {
         private Float pitch;
     }
 
-    // Steps by config-version, only ever appended, each sets config-version itself
-    public static List<Consumer<YamlConfiguration>> migrations() {
+    public LevelConfig(AuroraLevels plugin) {
+        super(getFile(plugin));
+    }
+
+    public static File getFile(AuroraLevels plugin) {
+        return new File(plugin.getDataFolder(), "config.yml");
+    }
+
+    public static void saveDefault(AuroraLevels plugin) {
+        if (!getFile(plugin).exists()) {
+            plugin.saveResource("config.yml", false);
+        }
+    }
+
+    @Override
+    protected List<Consumer<YamlConfiguration>> getMigrationSteps() {
         return List.of(
                 (yaml) -> {
                     yaml.set("leaderboard-cache-size", 10);

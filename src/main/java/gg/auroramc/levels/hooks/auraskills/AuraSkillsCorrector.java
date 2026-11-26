@@ -6,7 +6,6 @@ import dev.aurelium.auraskills.api.AuraSkillsApi;
 import dev.aurelium.auraskills.api.stat.Stat;
 import dev.aurelium.auraskills.api.stat.StatModifier;
 import gg.auroramc.aurora.api.reward.RewardCorrector;
-import gg.auroramc.aurora.api.reward.integration.AuraSkillsStatReward;
 import gg.auroramc.levels.AuroraLevels;
 import org.bukkit.entity.Player;
 
